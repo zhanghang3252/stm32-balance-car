@@ -21,7 +21,6 @@
 #include "adc.h"
 #include "dma.h"
 #include "i2c.h"
-#include "rtc.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -103,7 +102,6 @@ int main(void)
   MX_DMA_Init();
   MX_ADC1_Init();
   MX_I2C1_Init();
-  MX_RTC_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
@@ -112,13 +110,14 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
    if(MPU_Init() != 0){
-		printf("MPU_Init error!!!\r\n");
+		printf("\r\nMPU_Init error!!!\r\n");
 	 }			
    if(mpu_dmp_init() != 0){
-		printf("mpu_dmp_init!!!error\r\n");
+		printf("\r\nmpu_dmp_init!!!error\r\n");
 	 }	
 	 
 	 MOTOR_INIT();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,12 +125,12 @@ int main(void)
   while (1)
   {
 		MOTOR_ADVANCE();
-		MOTOR_SPEEN(200);
+		MOTOR_SPEEN(100);
 		while(mpu_dmp_get_data(&pitch, &roll, &yaw));	
 		MPU_Get_Accelerometer(&aacx,&aacy, &aacz);		
 		MPU_Get_Gyroscope(&gyrox, &gyroy, &gyroz);
 		temp=MPU_Get_Temperature();
-		printf("X:%.1f Y:%.1f  Z:%.1f  temperature:%.2f \r\n",roll,pitch,yaw,temp/100);
+		printf("[%d]\tX:%.1f\tY:%.1f\tZ:%.1f\ttemperature:%.2f \r\n",HAL_GetTick(),roll,pitch,yaw,temp/100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -152,10 +151,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
@@ -177,8 +175,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -218,6 +215,7 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+	printf("Wrong parameters value: file %s on line %d\r\n", file, line);
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

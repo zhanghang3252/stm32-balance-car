@@ -21,12 +21,10 @@ balancecar/main.o: ..\Src\main.c ..\Inc\main.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_i2c.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h \
-  ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rtc.h \
-  ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rtc_ex.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h \
   ..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h ..\Inc\adc.h \
-  ..\Inc\dma.h ..\Inc\i2c.h ..\Inc\rtc.h ..\Inc\tim.h ..\Inc\usart.h \
-  ..\Inc\gpio.h ..\Drivers\User\IIC.h ..\Drivers\User\mpu6050.h \
+  ..\Inc\dma.h ..\Inc\i2c.h ..\Inc\tim.h ..\Inc\usart.h ..\Inc\gpio.h \
+  ..\Drivers\User\IIC.h ..\Drivers\User\mpu6050.h \
   ..\Drivers\User\inv_mpu.h ..\Drivers\User\inv_mpu_dmp_motion_driver.h \
   ..\Drivers\User\MOTOR.h

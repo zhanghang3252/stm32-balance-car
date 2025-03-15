@@ -79,9 +79,9 @@ float Differential_error=0.0;//误差微分
 float Differential_error1=0.0;//上一次误差微分
 float Diff_velocity=0.2;//微分滤波强度
 
-float kp=15.9,ki=0.4,kd=15.6;//pid控制项
+float kp=15.9,ki=0.6,kd=18.6;//pid控制项
 float current_value1=0;//上一次实际值
-float pwm_max = 450.0,pwm_min=20.0;//PWM限幅
+float pwm_max = 450.0,pwm_min=10.0;//PWM限幅
 float pwm=0;//输出pwm
 uint8_t direction=0;//旋转方向
 float target = 0.0;//目标值
